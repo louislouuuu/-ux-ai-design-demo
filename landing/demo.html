@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Personalized Home — Demo | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="demo.css" />
+  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+</head>
+<body>
+  <!-- Top bar: dimension tabs + Design details + Theme -->
+  <header class="demo-controls" aria-label="Demo controls">
+    <nav class="dimension-tabs" aria-label="Comparison dimension">
+      <button type="button" class="dimension-tab is-active" data-dimension="1" aria-pressed="true">1. Home/Navigation</button>
+      <button type="button" class="dimension-tab" data-dimension="2" aria-pressed="false">2. Buying a stock</button>
+      <button type="button" class="dimension-tab" data-dimension="3" aria-pressed="false">3. Balance Error</button>
+      <button type="button" class="dimension-tab" data-dimension="4" aria-pressed="false">4. Risk &amp; decision</button>
+    </nav>
+    <div class="demo-controls-actions">
+      <button type="button" class="design-trigger" id="design-trigger" aria-label="Open design details">
+        <span class="design-trigger-icon"></span>
+        <span class="design-trigger-label">Design details</span>
+      </button>
+      <button type="button" class="theme-switcher" id="theme-switcher" aria-label="Toggle theme">
+        <span class="theme-switcher-icon" aria-hidden="true"></span>
+        <span class="theme-switcher-label" id="theme-switcher-label">Forest</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="comparison-split">
+    <!-- Left: Traditional UX (fixed layout, static blocks) -->
+    <div class="comparison-half comparison-half--traditional">
+      <div class="dimension-pane is-active" data-dimension="1">
+        <div class="traditional-home-mock">
+          <header class="broker-section-header">
+            <h2 class="broker-section-title">Top movers</h2>
+          </header>
+          <div class="broker-segment" role="tablist" aria-label="Filter">
+            <span class="broker-segment-item is-active" role="tab">Top gainers</span>
+            <span class="broker-segment-item" role="tab">Top losers</span>
+          </div>
+          <div class="broker-ticker-grid" aria-label="Ticker cards">
+            <div class="broker-ticker-card"><span class="concept-ticker-icon" aria-hidden="true"></span><span class="concept-ticker-name">AAPL</span><span class="concept-ticker-pct" aria-hidden="true"></span></div>
+            <div class="broker-ticker-card"><span class="concept-ticker-icon" aria-hidden="true"></span><span class="concept-ticker-name">MSFT</span><span class="concept-ticker-pct" aria-hidden="true"></span></div>
+            <div class="broker-ticker-card"><span class="concept-ticker-icon" aria-hidden="true"></span><span class="concept-ticker-name">GOOGL</span><span class="concept-ticker-pct" aria-hidden="true"></span></div>
+            <div class="broker-ticker-card"><span class="concept-ticker-icon" aria-hidden="true"></span><span class="concept-ticker-name">TSLA</span><span class="concept-ticker-pct" aria-hidden="true"></span></div>
+            <div class="broker-ticker-card"><span class="concept-ticker-icon" aria-hidden="true"></span><span class="concept-ticker-name">NVDA</span><span class="concept-ticker-pct" aria-hidden="true"></span></div>
+            <div class="broker-ticker-card"><span class="concept-ticker-icon" aria-hidden="true"></span><span class="concept-ticker-name">META</span><span class="concept-ticker-pct" aria-hidden="true"></span></div>
+            <div class="broker-ticker-card"><span class="concept-ticker-icon" aria-hidden="true"></span><span class="concept-ticker-name">AMZN</span><span class="concept-ticker-pct" aria-hidden="true"></span></div>
+            <div class="broker-ticker-card"><span class="concept-ticker-icon" aria-hidden="true"></span><span class="concept-ticker-name">VOO</span><span class="concept-ticker-pct" aria-hidden="true"></span></div>
+          </div>
+          <section class="broker-block broker-block--card">
+            <h2 class="broker-section-title">Watchlist</h2>
+            <div class="broker-list broker-list--rows">
+              <div class="broker-list-row"><span class="concept-ticker-icon concept-ticker-icon--sm" aria-hidden="true"></span><span class="concept-ticker-name">NVDA</span><span class="concept-ticker-pct" aria-hidden="true"></span></div>
+              <div class="broker-list-row"><span class="concept-ticker-icon concept-ticker-icon--sm" aria-hidden="true"></span><span class="concept-ticker-name">AMD</span><span class="concept-ticker-pct" aria-hidden="true"></span></div>
+              <div class="broker-list-row"><span class="concept-ticker-icon concept-ticker-icon--sm" aria-hidden="true"></span><span class="concept-ticker-name">JPM</span><span class="concept-ticker-pct" aria-hidden="true"></span></div>
+              <div class="broker-list-row"><span class="concept-ticker-icon concept-ticker-icon--sm" aria-hidden="true"></span><span class="concept-ticker-name">COIN</span><span class="concept-ticker-pct" aria-hidden="true"></span></div>
+            </div>
+          </section>
+          <section class="broker-block broker-block--card">
+            <h2 class="broker-section-title">Markets / Indices</h2>
+            <div class="broker-list broker-list--rows">
+              <div class="broker-list-row"><span class="concept-ticker-icon concept-ticker-icon--sm" aria-hidden="true"></span><span class="concept-ticker-name">S&P 500</span><span class="concept-ticker-pct" aria-hidden="true"></span></div>
+              <div class="broker-list-row"><span class="concept-ticker-icon concept-ticker-icon--sm" aria-hidden="true"></span><span class="concept-ticker-name">NASDAQ</span><span class="concept-ticker-pct" aria-hidden="true"></span></div>
+              <div class="broker-list-row"><span class="concept-ticker-icon concept-ticker-icon--sm" aria-hidden="true"></span><span class="concept-ticker-name">DOW</span><span class="concept-ticker-pct" aria-hidden="true"></span></div>
+            </div>
+          </section>
+        </div>
+        <nav class="traditional-nav traditional-nav--bottom" aria-label="Main navigation">
+          <span class="traditional-nav-item is-active" aria-current="page"><span class="traditional-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span> Home</span>
+          <span class="traditional-nav-item"><span class="traditional-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span> Search</span>
+          <span class="traditional-nav-item"><span class="traditional-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 8 3 12 7 16"/><polyline points="17 8 21 12 17 16"/><line x1="3" y1="12" x2="21" y2="12"/></svg></span> Trade</span>
+          <span class="traditional-nav-item"><span class="traditional-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span> Profile</span>
+        </nav>
+      </div>
+      <div class="dimension-pane" data-dimension="2">
+        <div class="dimension-placeholder">
+          <p class="dimension-placeholder-title">Fixed form page</p>
+          <p class="dimension-placeholder-desc">User fills static fields: symbol, quantity, order type — multi-step flow</p>
+        </div>
+      </div>
+      <div class="dimension-pane" data-dimension="3">
+        <div class="dimension-placeholder">
+          <p class="dimension-placeholder-title">Red text / toast</p>
+          <p class="dimension-placeholder-desc">Error only after submit — e.g. “Insufficient balance”</p>
+        </div>
+      </div>
+      <div class="dimension-pane" data-dimension="4">
+        <div class="dimension-placeholder">
+          <p class="dimension-placeholder-title">Good looking, easy to use</p>
+          <p class="dimension-placeholder-desc">UI focuses on layout and clarity — user decides alone</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: AI UX (current demo) -->
+    <div class="comparison-half comparison-half--ai">
+      <div class="dimension-pane is-active" data-dimension="1">
+  <div class="demo-view">
+    <!-- Space: starfield -->
+    <div class="starfield" id="starfield" aria-hidden="true"></div>
+
+    <!-- Subtle tech grid -->
+    <div class="tech-grid" aria-hidden="true"></div>
+
+    <!-- Sky gradient (horizon) -->
+    <div class="sky" aria-hidden="true"></div>
+
+    <!-- Water: 3D (Three.js) -->
+    <div class="ocean" aria-hidden="true">
+      <div id="water-container"></div>
+    </div>
+
+    <!-- Bubbles / orbs (many, mainly on sides) -->
+    <div class="bubbles" id="bubbles" aria-hidden="true"></div>
+
+    <!-- Quick-action: 2 options focused on generating AI customised home -->
+    <div class="bubble-cards" id="bubble-cards">
+      <button type="button" class="bubble-card" data-action="build-home" aria-label="Build home from stocks I checked yesterday">
+        <span class="bubble-card-icon">◇</span>
+        <span class="bubble-card-label">Build home from stocks I checked yesterday</span>
+      </button>
+      <button type="button" class="bubble-card" data-action="ai-recommend" aria-label="Top 10 AI tech stocks today">
+        <span class="bubble-card-icon">◆</span>
+        <span class="bubble-card-label">Top 10 AI tech stocks today</span>
+      </button>
+    </div>
+
+    <!-- AI building transition -->
+    <div class="home-transition" id="home-transition" aria-hidden="true">
+      <p class="home-transition-text">Building your home…</p>
+      <div class="home-transition-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+    </div>
+
+    <!-- AI-generated home view: symbols you’ve viewed / interested in -->
+    <div class="home-view" id="home-view" aria-hidden="true">
+      <button type="button" class="home-back" id="home-back" aria-label="Back to quick actions">← Back</button>
+      <div class="home-view-inner">
+        <p class="home-view-sub">Based on your interest</p>
+        <ul class="home-symbols" aria-label="Symbols based on your browsing">
+          <li class="symbol-card">
+            <span class="symbol-ticker">AAPL</span>
+            <span class="symbol-name">Apple Inc.</span>
+            <div class="symbol-sparkline" aria-hidden="true">
+              <svg viewBox="0 0 60 20" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M0 14 L12 12 L24 10 L36 7 L48 5 L60 3"/></svg>
+            </div>
+            <div class="symbol-quote"><span class="symbol-price">$224.80</span><span class="symbol-change symbol-change--up">+1.2%</span></div>
+            <button type="button" class="symbol-cta">View</button>
+          </li>
+          <li class="symbol-card">
+            <span class="symbol-ticker">MSFT</span>
+            <span class="symbol-name">Microsoft Corp.</span>
+            <div class="symbol-sparkline symbol-sparkline--down" aria-hidden="true">
+              <svg viewBox="0 0 60 20" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M0 5 L15 7 L30 9 L45 12 L60 14"/></svg>
+            </div>
+            <div class="symbol-quote"><span class="symbol-price">$418.65</span><span class="symbol-change symbol-change--down">−0.4%</span></div>
+            <button type="button" class="symbol-cta">View</button>
+          </li>
+          <li class="symbol-card">
+            <span class="symbol-ticker">VOO</span>
+            <span class="symbol-name">Vanguard S&P 500 ETF</span>
+            <div class="symbol-sparkline" aria-hidden="true">
+              <svg viewBox="0 0 60 20" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M0 12 L20 11 L40 8 L60 4"/></svg>
+            </div>
+            <div class="symbol-quote"><span class="symbol-price">$445.20</span><span class="symbol-change symbol-change--up">+0.8%</span></div>
+            <button type="button" class="symbol-cta">View</button>
+          </li>
+          <li class="symbol-card">
+            <span class="symbol-ticker">GOOGL</span>
+            <span class="symbol-name">Alphabet Inc.</span>
+            <div class="symbol-sparkline" aria-hidden="true">
+              <svg viewBox="0 0 60 20" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M0 16 L15 14 L30 10 L45 6 L60 2"/></svg>
+            </div>
+            <div class="symbol-quote"><span class="symbol-price">$172.30</span><span class="symbol-change symbol-change--up">+2.1%</span></div>
+            <button type="button" class="symbol-cta">View</button>
+          </li>
+          <li class="symbol-card">
+            <span class="symbol-ticker">TSLA</span>
+            <span class="symbol-name">Tesla Inc.</span>
+            <div class="symbol-sparkline symbol-sparkline--down" aria-hidden="true">
+              <svg viewBox="0 0 60 20" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M0 4 L20 6 L40 10 L60 15"/></svg>
+            </div>
+            <div class="symbol-quote"><span class="symbol-price">$248.50</span><span class="symbol-change symbol-change--down">−0.9%</span></div>
+            <button type="button" class="symbol-cta">View</button>
+          </li>
+          <li class="symbol-card">
+            <span class="symbol-ticker">1Y TD</span>
+            <span class="symbol-name">1Y Term Deposit</span>
+            <div class="symbol-sparkline symbol-sparkline--flat" aria-hidden="true">
+              <svg viewBox="0 0 60 20" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M0 10 L60 10"/></svg>
+            </div>
+            <div class="symbol-quote"><span class="symbol-price">2.5% APY</span></div>
+            <button type="button" class="symbol-cta">Invest</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Chat bar (fixed bottom) -->
+    <div class="chat-bar">
+      <form class="chat-bar-form" id="chat-bar-form" role="search">
+        <input
+          type="text"
+          class="chat-bar-input"
+          id="chat-bar-input"
+          placeholder="e.g. Build a home from the stocks I checked yesterday"
+          autocomplete="off"
+          aria-label="Ask for transfer, balance, or invest"
+        />
+        <button type="submit" class="chat-bar-submit" aria-label="Send">Send</button>
+      </form>
+    </div>
+
+  </div>
+  </div>
+      </div>
+      <div class="dimension-pane" data-dimension="2">
+        <div class="dimension-placeholder dimension-placeholder--ai">
+          <p class="dimension-placeholder-title">Scenario generation</p>
+          <p class="dimension-placeholder-desc">“I want to buy 5 Apple” → system asks quantity, order type, live price step-by-step → Stepper UI</p>
+        </div>
+      </div>
+      <div class="dimension-pane" data-dimension="3">
+        <div class="dimension-placeholder dimension-placeholder--ai">
+          <p class="dimension-placeholder-title">Provide solution options</p>
+          <p class="dimension-placeholder-desc">Insufficient balance → card: “Buy fewer shares / Installments / Financing”</p>
+        </div>
+      </div>
+      <div class="dimension-pane" data-dimension="4">
+        <div class="dimension-placeholder dimension-placeholder--ai">
+          <p class="dimension-placeholder-title">Decision design</p>
+          <p class="dimension-placeholder-desc">Before trade: show risk, proportion, potential loss → suggest stop loss / installments</p>
+        </div>
+      </div>
+  </div>
+  </div>
+
+  <!-- Side panel: design details -->
+  <aside class="design-panel" id="design-panel" aria-hidden="true">
+    <div class="design-panel-inner">
+      <button type="button" class="design-panel-close" id="design-panel-close" aria-label="Close">×</button>
+      <header class="design-panel-header">
+        <h2>Design details</h2>
+        <p class="design-panel-sub">Traditional UX vs AI UX · Four comparisons</p>
+      </header>
+      <div class="design-panel-content">
+        <section>
+          <h3>1. Path — Home/Navigation</h3>
+          <p><strong>Traditional UX:</strong> Page flow — user follows fixed screens and menus.</p>
+          <p><strong>New UX / AI UX:</strong> Intent: start a task with one sentence.</p>
+          <p><strong>Demo:</strong> On Home, user types “I want to buy 5 shares of Apple” → system directly generates a task card.</p>
+        </section>
+        <section>
+          <h3>2. Information architecture — Buying a stock</h3>
+          <p><strong>Traditional UX:</strong> Fixed form page — user fills static fields in sequence.</p>
+          <p><strong>New UX / AI UX:</strong> Context generation: dynamically break down the task.</p>
+          <p><strong>Demo:</strong> System asks step-by-step for share quantity, order type, real-time price → Stepper UI.</p>
+        </section>
+        <section>
+          <h3>3. Error avoidance — Balance Error</h3>
+          <p><strong>Traditional UX:</strong> Red text or toast — error only after user submits.</p>
+          <p><strong>New UX / AI UX:</strong> Smart correction: provide solution options.</p>
+          <p><strong>Demo:</strong> Insufficient balance on order → system shows option card: “Buy fewer shares / Installment / Financing”.</p>
+        </section>
+        <section>
+          <h3>4. Interface design — Risk & decision</h3>
+          <p><strong>Traditional UX:</strong> Good looking, easy to operate — focus on layout and clarity.</p>
+          <p><strong>New UX / AI UX:</strong> Decision design: help users make better decisions.</p>
+          <p><strong>Demo:</strong> Before trade: show risk, proportion, potential loss → provide risk reduction suggestions & stop-loss / installment purchase plans.</p>
+        </section>
+      </div>
+    </div>
+  </aside>
+
+  <div class="design-panel-backdrop" id="design-panel-backdrop" aria-hidden="true"></div>
+
+  <script src="demo.js"></script>
+</body>
+</html>
