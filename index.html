@@ -7,33 +7,83 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="demo.css" />
-  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
 </head>
-<body>
-  <!-- Top bar: dimension tabs + Design details + Theme -->
-  <header class="demo-controls" aria-label="Demo controls">
-    <nav class="dimension-tabs" aria-label="Comparison dimension">
-      <button type="button" class="dimension-tab is-active" data-dimension="1" aria-pressed="true">1. Home/Navigation</button>
-      <button type="button" class="dimension-tab" data-dimension="2" aria-pressed="false">2. Buying a stock</button>
-      <button type="button" class="dimension-tab" data-dimension="3" aria-pressed="false">3. Balance Error</button>
-      <button type="button" class="dimension-tab" data-dimension="4" aria-pressed="false">4. Risk &amp; decision</button>
-    </nav>
-    <div class="demo-controls-actions">
-      <button type="button" class="design-trigger" id="design-trigger" aria-label="Open design details">
-        <span class="design-trigger-icon"></span>
-        <span class="design-trigger-label">Design details</span>
-      </button>
-      <button type="button" class="theme-switcher" id="theme-switcher" aria-label="Toggle theme">
-        <span class="theme-switcher-icon" aria-hidden="true"></span>
-        <span class="theme-switcher-label" id="theme-switcher-label">Forest</span>
-      </button>
+<body class="desktop">
+  <!-- Menu bar: dot+name, File, View, Design, Mode | search + time/date -->
+  <header class="menu-bar" aria-label="Menu bar">
+    <span class="menu-bar-left">
+      <span class="menu-bar-dot" aria-hidden="true"></span>
+      <span class="menu-bar-app" id="menu-bar-app">Broker &amp; Bank</span>
+      <span class="menu-bar-file-wrap">
+        <button type="button" class="menu-bar-trigger" id="file-menu-trigger" aria-haspopup="true" aria-expanded="false">File</button>
+        <div class="menu-dropdown" id="file-dropdown" role="menu" aria-hidden="true">
+          <button type="button" class="menu-dropdown-item" role="menuitem" data-file-action="open-old">Open Old UX</button>
+          <button type="button" class="menu-dropdown-item" role="menuitem" data-file-action="open-new">Open New UX</button>
+          <button type="button" class="menu-dropdown-item" role="menuitem" data-file-action="open-both">Open Both</button>
+          <button type="button" class="menu-dropdown-item" role="menuitem" data-file-action="close-all">Close All</button>
+        </div>
+      </span>
+      <span class="menu-bar-view-wrap">
+        <button type="button" class="menu-bar-trigger" id="view-menu-trigger" aria-haspopup="true" aria-expanded="false">View</button>
+        <div class="menu-dropdown" id="view-dropdown" role="menu" aria-hidden="true">
+          <button type="button" class="menu-dropdown-item" role="menuitem" data-dimension="1">1. Home/Navigation</button>
+          <button type="button" class="menu-dropdown-item" role="menuitem" data-dimension="2">2. Buying a stock</button>
+          <button type="button" class="menu-dropdown-item" role="menuitem" data-dimension="3">3. Balance Error</button>
+          <button type="button" class="menu-dropdown-item" role="menuitem" data-dimension="4">4. Risk &amp; decision</button>
+        </div>
+      </span>
+      <button type="button" class="menu-bar-item menu-bar-action" id="menu-design" aria-label="Design details">Design</button>
+      <span class="menu-bar-mode-wrap">
+        <button type="button" class="menu-bar-trigger" id="mode-menu-trigger" aria-haspopup="true" aria-expanded="false">Mode</button>
+        <div class="menu-dropdown" id="mode-dropdown" role="menu" aria-hidden="true">
+          <button type="button" class="menu-dropdown-item" role="menuitem" data-mode="dark">Dark</button>
+          <button type="button" class="menu-dropdown-item" role="menuitem" data-mode="light">Light</button>
+        </div>
+      </span>
+    </span>
+    <div class="menu-bar-right">
+      <div class="menu-bar-search-wrap">
+        <span class="menu-bar-search-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </span>
+        <label for="menu-search-input" class="visually-hidden">Search</label>
+        <input type="search" class="menu-bar-search" id="menu-search-input" placeholder="Search…" autocomplete="off" aria-label="Search" />
+      </div>
+      <span class="menu-clock" id="menu-clock" aria-hidden="true">Mon Feb 23 12:31 AM</span>
     </div>
   </header>
 
-  <div class="comparison-split">
-    <!-- Left: Traditional UX (fixed layout, static blocks) -->
-    <div class="comparison-half comparison-half--traditional">
+  <div class="desktop-area">
+    <!-- Desktop icons: click to open window -->
+    <div class="desktop-icons" aria-label="Desktop icons">
+      <button type="button" class="desktop-icon" id="icon-old-ux" data-open="traditional" aria-label="Open Old UX">
+        <span class="desktop-icon-image" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="12" width="48" height="36" rx="2"/><path d="M8 24h48"/><circle cx="20" cy="18" r="1.5" fill="currentColor"/><circle cx="26" cy="18" r="1.5" fill="currentColor"/><circle cx="32" cy="18" r="1.5" fill="currentColor"/></svg>
+        </span>
+        <span class="desktop-icon-label">Old UX</span>
+      </button>
+      <button type="button" class="desktop-icon" id="icon-new-ux" data-open="ai" aria-label="Open New UX">
+        <span class="desktop-icon-image" aria-hidden="true">
+          <!-- Same window as Old UX + AI vibe: sparkle inside -->
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="12" width="48" height="36" rx="2"/><path d="M8 24h48"/><circle cx="20" cy="18" r="1.5" fill="currentColor"/><circle cx="26" cy="18" r="1.5" fill="currentColor"/><circle cx="32" cy="18" r="1.5" fill="currentColor"/><path d="M32 30l2 4 4 1-3 3 1 4-4-2-4 2 1-4-3-3 4-1z" fill="currentColor" stroke="none"/></svg>
+        </span>
+        <span class="desktop-icon-label">New UX</span>
+      </button>
+    </div>
+
+    <div class="desktop-windows" id="desktop-windows">
+      <!-- Window: Old UX (draggable, resizable) -->
+      <div class="comparison-half comparison-half--traditional mac-window desktop-window" id="window-traditional" data-window="traditional" aria-hidden="true" tabindex="-1">
+        <div class="window-title-bar" data-drag="traditional">
+          <div class="window-controls">
+            <button type="button" class="window-btn window-close" data-close="traditional" aria-label="Close window"></button>
+            <span class="window-btn window-minimize" aria-hidden="true"></span>
+            <span class="window-btn window-zoom" aria-hidden="true"></span>
+          </div>
+          <span class="window-title">Old UX</span>
+        </div>
       <div class="dimension-pane is-active" data-dimension="1">
         <div class="traditional-home-mock">
           <header class="broker-section-header">
@@ -96,29 +146,22 @@
           <p class="dimension-placeholder-desc">UI focuses on layout and clarity — user decides alone</p>
         </div>
       </div>
+        <div class="window-resize-handle" data-resize="traditional" aria-hidden="true"></div>
     </div>
 
-    <!-- Right: AI UX (current demo) -->
-    <div class="comparison-half comparison-half--ai">
+      <!-- Window: New UX (draggable, resizable) -->
+      <div class="comparison-half comparison-half--ai mac-window desktop-window" id="window-ai" data-window="ai" aria-hidden="true" tabindex="-1">
+        <div class="window-title-bar" data-drag="ai">
+          <div class="window-controls">
+            <button type="button" class="window-btn window-close" data-close="ai" aria-label="Close window"></button>
+            <span class="window-btn window-minimize" aria-hidden="true"></span>
+            <span class="window-btn window-zoom" aria-hidden="true"></span>
+          </div>
+          <span class="window-title">New UX</span>
+        </div>
       <div class="dimension-pane is-active" data-dimension="1">
   <div class="demo-view">
-    <!-- Space: starfield -->
-    <div class="starfield" id="starfield" aria-hidden="true"></div>
-
-    <!-- Subtle tech grid -->
-    <div class="tech-grid" aria-hidden="true"></div>
-
-    <!-- Sky gradient (horizon) -->
-    <div class="sky" aria-hidden="true"></div>
-
-    <!-- Water: 3D (Three.js) -->
-    <div class="ocean" aria-hidden="true">
-      <div id="water-container"></div>
-    </div>
-
-    <!-- Bubbles / orbs (many, mainly on sides) -->
-    <div class="bubbles" id="bubbles" aria-hidden="true"></div>
-
+    <div class="demo-view-content">
     <!-- Quick-action: 2 options focused on generating AI customised home -->
     <div class="bubble-cards" id="bubble-cards">
       <button type="button" class="bubble-card" data-action="build-home" aria-label="Build home from stocks I checked yesterday">
@@ -201,6 +244,7 @@
       </div>
     </div>
 
+    </div>
     <!-- Chat bar (fixed bottom) -->
     <div class="chat-bar">
       <form class="chat-bar-form" id="chat-bar-form" role="search">
@@ -208,7 +252,7 @@
           type="text"
           class="chat-bar-input"
           id="chat-bar-input"
-          placeholder="e.g. Build a home from the stocks I checked yesterday"
+          placeholder="e.g. Build a home from stocks you checked"
           autocomplete="off"
           aria-label="Ask for transfer, balance, or invest"
         />
@@ -218,7 +262,6 @@
 
   </div>
   </div>
-      </div>
       <div class="dimension-pane" data-dimension="2">
         <div class="dimension-placeholder dimension-placeholder--ai">
           <p class="dimension-placeholder-title">Scenario generation</p>
@@ -237,7 +280,31 @@
           <p class="dimension-placeholder-desc">Before trade: show risk, proportion, potential loss → suggest stop loss / installments</p>
         </div>
       </div>
+        <div class="window-resize-handle" data-resize="ai" aria-hidden="true"></div>
+    </div>
   </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Guide notifications (right side) -->
+  <div class="guide-stack" id="guide-stack">
+    <div class="guide-note" data-guide="1">
+      <span class="guide-step">1</span>
+      <span class="guide-text">Click a desktop icon to open a window</span>
+      <button type="button" class="guide-close" aria-label="Dismiss">×</button>
+    </div>
+    <div class="guide-note" data-guide="2">
+      <span class="guide-step">2</span>
+      <span class="guide-text">Use <strong>View</strong> menu to switch scenarios</span>
+      <button type="button" class="guide-close" aria-label="Dismiss">×</button>
+    </div>
+    <div class="guide-note" data-guide="3">
+      <span class="guide-step">3</span>
+      <span class="guide-text">Try <strong>Design</strong> for details, <strong>Mode</strong> for theme</span>
+      <button type="button" class="guide-close" aria-label="Dismiss">×</button>
+    </div>
   </div>
 
   <!-- Side panel: design details -->
@@ -278,6 +345,51 @@
   </aside>
 
   <div class="design-panel-backdrop" id="design-panel-backdrop" aria-hidden="true"></div>
+
+  <!-- Dock: projects -->
+  <nav class="dock" aria-label="Projects">
+    <div class="dock-inner">
+      <button type="button" class="dock-icon is-active" data-project="broker-bank" data-label="Broker &amp; Bank" aria-current="page" aria-label="Broker & Bank">
+        <span class="dock-icon-image" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="16" width="40" height="32" rx="4"/><path d="M20 40l8-12 8 8 8-16"/></svg>
+        </span>
+        <span class="dock-icon-label">Broker &amp; Bank</span>
+      </button>
+      <button type="button" class="dock-icon" data-project="music" data-label="Music" aria-label="Music">
+        <span class="dock-icon-image" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 12v32M24 12l24 8v24l-24-8"/><circle cx="48" cy="44" r="6"/><circle cx="24" cy="44" r="6"/></svg>
+        </span>
+        <span class="dock-icon-label">Music</span>
+      </button>
+      <button type="button" class="dock-icon" data-project="productivity" data-label="Productivity" aria-label="Productivity">
+        <span class="dock-icon-image" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="10" width="18" height="18" rx="3"/><rect x="36" y="10" width="18" height="18" rx="3"/><rect x="10" y="36" width="18" height="18" rx="3"/><rect x="36" y="36" width="18" height="18" rx="3"/></svg>
+        </span>
+        <span class="dock-icon-label">Productivity</span>
+      </button>
+      <span class="dock-separator" aria-hidden="true"></span>
+      <button type="button" class="dock-icon" id="dock-trash" aria-label="Trash" title="Trash">
+        <span class="dock-icon-image" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12h48v40a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4V12z"/><path d="M20 12V8a4 4 0 0 1 4-4h16a4 4 0 0 1 4 4v4"/><path d="M24 24v16"/><path d="M32 24v16"/><path d="M40 24v16"/></svg>
+        </span>
+        <span class="dock-icon-label">Trash</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Trash panel: dismissed notifications -->
+  <aside class="trash-panel" id="trash-panel" aria-hidden="true" aria-label="Trash">
+    <div class="trash-panel-inner">
+      <button type="button" class="trash-panel-close" id="trash-panel-close" aria-label="Close">×</button>
+      <header class="trash-panel-header">
+        <h2>Trash</h2>
+        <p class="trash-panel-sub">Dismissed notifications</p>
+      </header>
+      <ul class="trash-list" id="trash-list" aria-label="Items in trash"></ul>
+      <p class="trash-empty" id="trash-empty">No items. Close a guide notification to see it here.</p>
+    </div>
+  </aside>
+  <div class="trash-panel-backdrop" id="trash-panel-backdrop" aria-hidden="true"></div>
 
   <script src="demo.js"></script>
 </body>
