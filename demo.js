@@ -54,7 +54,7 @@
 
   function getTheme() {
     try {
-      return localStorage.getItem(THEME_KEY) || "";
+      return localStorage.getItem(THEME_KEY) || "forest";
     } catch (e) {
       return "";
     }
