@@ -37,6 +37,7 @@ html, body {
 body {
   display: flex;
   flex-direction: column;
+  cursor: url("cursor.svg") 14 0, auto;
 }
 
 /* ----- Desktop background: dark mode (default) — flat gray ----- */
@@ -580,7 +581,6 @@ body.desktop {
   height: 100vh;
   background: rgba(28, 28, 28, 0.98);
   border-left: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.4);
   transform: translateX(100%);
   transition: transform 0.3s ease;
   overflow: hidden;
@@ -588,6 +588,7 @@ body.desktop {
 
 .trash-panel.is-open {
   transform: translateX(0);
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.4);
 }
 
 .trash-panel-inner {
@@ -1816,7 +1817,6 @@ body.desktop {
   height: 100vh;
   background: rgba(18, 18, 18, 0.97);
   border-left: 1px solid var(--ui-border);
-  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(20px);
   transform: translateX(100%);
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1825,6 +1825,7 @@ body.desktop {
 
 .design-panel.is-open {
   transform: translateX(0);
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.02);
 }
 
 .design-panel-inner {
