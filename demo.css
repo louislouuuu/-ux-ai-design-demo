@@ -37,7 +37,40 @@ html, body {
 body {
   display: flex;
   flex-direction: column;
-  cursor: url("cursor.svg") 14 0, auto;
+  cursor: url("cursor.svg") 9 0, auto;
+}
+
+/* ----- Cursor trail (sparkle) ----- */
+.cursor-trail {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.cursor-trail-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.35);
+  transform: translate(-50%, -50%);
+  animation: cursor-trail-sparkle 0.55s ease-out forwards;
+}
+
+@keyframes cursor-trail-sparkle {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(1.25);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.5);
+  }
 }
 
 /* ----- Desktop background: dark mode (default) — flat gray ----- */

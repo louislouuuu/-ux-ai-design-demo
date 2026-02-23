@@ -515,4 +515,28 @@
       }
     });
   }
+
+  // ----- Cursor trail (sparkle) -----
+  var trailEl = document.getElementById("cursor-trail");
+  var trailLast = 0;
+  var trailThrottle = 50;
+
+  if (trailEl) {
+    document.addEventListener("mousemove", function (e) {
+      var now = Date.now();
+      if (now - trailLast < trailThrottle) return;
+      trailLast = now;
+      var dot = document.createElement("span");
+      dot.className = "cursor-trail-dot";
+      dot.style.left = e.clientX + "px";
+      dot.style.top = e.clientY + "px";
+      trailEl.appendChild(dot);
+      dot.addEventListener("animationend", function () {
+        dot.remove();
+      });
+      setTimeout(function () {
+        if (dot.parentNode) dot.remove();
+      }, 600);
+    });
+  }
 })();
